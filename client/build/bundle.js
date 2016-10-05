@@ -56,9 +56,11 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var Cats = __webpack_require__(2)
+	
 	var UI = function(){
-	 var cats = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../seeds\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-	 cats.forEach(function(cat){
+	 var cats = new Cats();
+	 cats.all(function(cat){
 	  this.render(cat)
 	 }.bind(this));
 	}
@@ -75,6 +77,35 @@
 	  }
 	}
 
+
+/***/ },
+/* 2 */
+/***/ function(module, exports) {
+
+	var Cats = function() {
+	
+	};
+	
+	Cats.prototype.all = function() {
+	  var url = "http://localhost:3000/api/cats";
+	  makeRequest( url, function( callback ) {
+	    if(this.status !== 200) return;
+	    var jsonString = this.responseText;
+	    var results = JSON.parse( jsonString );
+	    var cats = populateCats( results );
+	
+	    callback( cats );
+	  })
+	}
+	
+	Cats.prototype.populateCats = function( results ) {
+	  var cats = [];
+	  for( var i = 0; i < results.length; i++ ){
+	    var result = results[i];
+	    cats.push( new Cat( result ) );
+	  }
+	  return cats;
+	}
 
 /***/ }
 /******/ ]);
