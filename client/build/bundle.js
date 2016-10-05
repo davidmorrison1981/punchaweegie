@@ -60,22 +60,23 @@
 	
 	var UI = function(){
 	 var cats = new Cats();
-	 cats.all(function(cat){
-	  this.render(cat);
+	 cats.all(function(cats){
+	  this.render(cats);
 	 }.bind(this));
 	}
 	
 	UI.prototype = {
-	  render: function(cat){
-	    console.log( cat );
+	  render: function(cats){
+	    console.log( cats );
 	    var container = document.querySelector('#cats');
 	
-	    // for(var i=0; i<cats.length; i++){
-	    //   var cat = cats[i];
+	    for(var i=0; i<cats.length; i++){
+	      var cat = cats[i];
 	      var li = document.createElement('li');
-	      li.innerText = 'Name:' + cat.name;
+	      li.innerText = 'Name: ' + cat.name + " "+'Breed: ' + cat.breed;
+	      
 	      container.appendChild(li);
-	    
+	    }
 	  }
 	}
 	
