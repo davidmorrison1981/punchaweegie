@@ -3,6 +3,8 @@ var app = express();
 var path = require('path');
 var CatApi = require('./cat-api/catApi')
 
+app.use(express.static('client/build'));
+
 app.get('/', function(req, res){
   res.sendFile(path.join(__dirname + '/client/build/index.html'))
 });

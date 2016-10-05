@@ -9,6 +9,7 @@ var UI = function(){
 
 UI.prototype = {
   render: function(cat){
+    console.log( cat );
     var container = document.querySelector('#cats');
 
     for(var i=0; i<cats.length; i++){
@@ -18,3 +19,5 @@ UI.prototype = {
     }
   }
 }
+
+module.exports = UI;

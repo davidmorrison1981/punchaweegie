@@ -67,6 +67,7 @@
 	
 	UI.prototype = {
 	  render: function(cat){
+	    console.log( cat );
 	    var container = document.querySelector('#cats');
 	
 	    for(var i=0; i<cats.length; i++){
@@ -76,6 +77,8 @@
 	    }
 	  }
 	}
+	
+	module.exports = UI;
 
 
 /***/ },
@@ -88,14 +91,14 @@
 	
 	Cats.prototype.all = function() {
 	  var url = "http://localhost:3000/api/cats";
-	  makeRequest( url, function( callback ) {
+	  this.makeRequest( url, function( callback ) {
 	    if(this.status !== 200) return;
 	    var jsonString = this.responseText;
 	    var results = JSON.parse( jsonString );
-	    var cats = populateCats( results );
+	    var cats = this.populateCats( results );
 	
 	    callback( cats );
-	  })
+	  }.bind(this))
 	}
 	
 	Cats.prototype.populateCats = function( results ) {
@@ -106,6 +109,15 @@
 	  }
 	  return cats;
 	}
+	
+	Cats.prototype.makeRequest = function( url, callback ) {
+	  var request = new XMLHttpRequest();
+	  request.open("GET", url);
+	  request.onload = callback;
+	  request.send();
+	}
+	
+	module.exports = Cats;
 
 /***/ }
 /******/ ]);
