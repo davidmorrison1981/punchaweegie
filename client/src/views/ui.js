@@ -12,11 +12,12 @@ UI.prototype = {
     console.log( cat );
     var container = document.querySelector('#cats');
 
-    for(var i=0; i<cats.length; i++){
+    // for(var i=0; i<cats.length; i++){
+    //   var cat = cats[i];
       var li = document.createElement('li');
-      li.innerText('Name:', cat.name);
+      li.innerText = 'Name:' + cat.name;
       container.appendChild(li);
-    }
+    
   }
 }
 
