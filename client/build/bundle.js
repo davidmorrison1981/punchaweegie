@@ -61,7 +61,7 @@
 	var UI = function(){
 	 var cats = new Cats();
 	 cats.all(function(cat){
-	  this.render(cat)
+	  this.render(cat);
 	 }.bind(this));
 	}
 	
@@ -83,22 +83,25 @@
 
 /***/ },
 /* 2 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
+	var Cat = __webpack_require__(3);
+	
 	var Cats = function() {
 	
 	};
 	
-	Cats.prototype.all = function() {
+	Cats.prototype.all = function( callback ) {
 	  var url = "http://localhost:3000/api/cats";
-	  this.makeRequest( url, function( callback ) {
+	  var self = this;
+	  this.makeRequest( url, function() {
 	    if(this.status !== 200) return;
 	    var jsonString = this.responseText;
 	    var results = JSON.parse( jsonString );
-	    var cats = this.populateCats( results );
+	    var cats = self.populateCats( results );
 	
 	    callback( cats );
-	  }.bind(this))
+	  })
 	}
 	
 	Cats.prototype.populateCats = function( results ) {
@@ -118,6 +121,20 @@
 	}
 	
 	module.exports = Cats;
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	var Cat = function(options){
+	  this.name = options.name;
+	  this.breed = options.breed;
+	}
+	
+	Cat.prototype = {
+	};
+	
+	module.exports = Cat;
 
 /***/ }
 /******/ ]);

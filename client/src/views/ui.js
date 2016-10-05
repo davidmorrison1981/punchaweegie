@@ -3,7 +3,7 @@ var Cats = require('../models/cats.js')
 var UI = function(){
  var cats = new Cats();
  cats.all(function(cat){
-  this.render(cat)
+  this.render(cat);
  }.bind(this));
 }
 
